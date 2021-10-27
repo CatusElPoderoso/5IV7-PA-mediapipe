@@ -1,11 +1,13 @@
 import cv2
 import mediapipe as mp
 import numpy as np
-import pandas as pd
+import itertools as itert
 
 mp_drawing = mp.solutions.drawing_utils
 mp_drawing_styles = mp.solutions.drawing_styles
 mp_hands = mp.solutions.hands
+
+Array coords
 
 # For webcam input:
 cam = int(input('\nQué cámara quieres usar pa\n'))
@@ -70,9 +72,11 @@ with mp_hands.Hands(
             else:
               dedo="nose"
                   
-            # imprime los datos
-            coords = np.array([dedo,x,y], dtype=str)
-            print(coords)
+            # imprime los datos de cada dedo
+            coords = np.array([dedo,x,y])
+            # print(coords)
+            
+            top5 = itertools.islice(my_list, 5) # grab the first five elements
             
             # circulito uwu
             cv2.circle(image, (x, y), 3,(190, 225, 230), 3) # (image, center_coordinates, radius, color, thickness)
@@ -81,5 +85,6 @@ with mp_hands.Hands(
     if cv2.waitKey(5) & 0xFF == 27:
     
       break
+    
 cap.release()
-# cap.destroyAllWindows()
+# cap.destroyAllWindows() # no funcionaaaaaaaa
