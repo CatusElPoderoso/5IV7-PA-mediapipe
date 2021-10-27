@@ -1,12 +1,14 @@
 import cv2
 import mediapipe as mp
+import numpy as np
 
 mp_drawing = mp.solutions.drawing_utils
 mp_drawing_styles = mp.solutions.drawing_styles
 mp_hands = mp.solutions.hands
 
 # For webcam input:
-cap = cv2.VideoCapture(0)
+cam = int(input('\nQué cámara quieres usar pa\n'))
+cap = cv2.VideoCapture(cam)
 with mp_hands.Hands(
     min_detection_confidence=0.5,
     min_tracking_confidence=0.5) as hands:
@@ -65,7 +67,7 @@ with mp_hands.Hands(
               nom="pinky"
             else:
               nom="unidentified"
-            print(nom,x,y)
+            # print(nom,x,y) # lo comenté porque se me traba jsajs, pero es donde se imprimen los datos :3
             cv2.circle(image, (x, y), 3,(255, 0, 255), 3)
         
     cv2.imshow('MediaPipe Hands', image)
