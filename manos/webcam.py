@@ -1,6 +1,7 @@
 import cv2
 import mediapipe as mp
 import numpy as np
+import pandas as pd
 
 mp_drawing = mp.solutions.drawing_utils
 mp_drawing_styles = mp.solutions.drawing_styles
@@ -55,20 +56,26 @@ with mp_hands.Hands(
           if i in index:
             x = int(points.x * width) 
             y = int(points.y * height) 
+  
             if i == 4:
-              nom="thumb"
+              dedo="thumb"
             elif i == 8:
-              nom="index"
+              dedo="index"
             elif i == 12:
-              nom="middle"
+              dedo="middle"
             elif i == 16:
-              nom="ring"
+              dedo="ring"
             elif i == 20:
-              nom="pinky"
+              dedo="pinky"
             else:
-              nom="unidentified"
-            # print(nom,x,y) # lo comenté porque se me traba jsajs, pero es donde se imprimen los datos :3
-            cv2.circle(image, (x, y), 3,(255, 0, 255), 3)
+              dedo="nose"
+                  
+            # imprime los datos
+            coords = np.array([dedo,x,y], dtype=str)
+            print(coords)
+            
+            # circulito uwu
+            cv2.circle(image, (x, y), 3,(190, 225, 230), 3) # (image, center_coordinates, radius, color, thickness)
         
     cv2.imshow('MediaPipe Hands', image)
     if cv2.waitKey(5) & 0xFF == 27:
